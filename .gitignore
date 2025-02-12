@@ -132,3 +132,5 @@ dmypy.json
 
 #idea
 .idea
+/onnxruntime-1.15.1
+onnxruntime-1.15.1.zip
