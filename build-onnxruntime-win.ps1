@@ -46,14 +46,14 @@ param (
 
     [Parameter(Mandatory = $false)]
     [ValidateSet('mt', 'md')]
-    [string] $VsCRT = 'md',
+    [string] $VsCRT = 'mt',
 
     [Parameter(Mandatory = $false)]
     [switch] $BuildJava = $false,
 
     [Parameter(Mandatory = $false)]
     [ValidateSet('Release', 'Debug', 'MinSizeRel', 'RelWithDebInfo')]
-    [string] $BuildType = 'Release'
+    [string] $BuildType = 'Debug'
 )
 
 
