@@ -246,7 +246,8 @@ if (!(Test-Path -Path $OutPutPath\$BuildType))
     Write-Host "创建文件夹:$OutPutPath\$BuildType"
     New-Item -Path "$OutPutPath\$BuildType" -ItemType Directory
 }
-
+###################################################################################################################
+# 调用OnnxRuntime的编译链进行处理
 python $PSScriptRoot\tools\ci_build\build.py `
 	$VsArchFlag `
 	$ArmFlag `
@@ -260,7 +261,7 @@ python $PSScriptRoot\tools\ci_build\build.py `
 	--cmake_generator $VsFlag `
 	$StaticCrtFlag `
 	--cmake_extra_defines CMAKE_INSTALL_PREFIX=./install onnxruntime_BUILD_UNIT_TESTS=OFF
-
+###################################################################################################################
 if (!(Test-Path -Path $OutPutPath\$BuildType\$BuildType))
 {
     Write-Host "Build error!"
