@@ -79,7 +79,7 @@ function CheckLibexeExists
 
 function GetLibsList
 {
-    $InFile = "onnxruntime.dir\Release\onnxruntime.tlog\link.read.1.tlog"
+    $InFile = "onnxruntime.dir\Debug\onnxruntime.tlog\link.read.1.tlog"
     $OutFile = "install-static\libs_list.txt"
     $LikeLine = "RELEASE\*.LIB"
 
@@ -146,7 +146,7 @@ function CollectLibs
     }
 
     # 复制 onnxruntime.dir\Release\onnxruntime.tlog\link.read.1.tlog 文件到 install-static\link.log
-    Copy-Item -Path "onnxruntime.dir\Release\onnxruntime.tlog\link.read.1.tlog" -Destination "install-static\link.log"
+    Copy-Item -Path "onnxruntime.dir\Debug\onnxruntime.tlog\link.read.1.tlog" -Destination "install-static\link.log"
 
     # 创建 install-static\OnnxRuntimeConfig.cmake 文件，并写入相关内容
     Set-Content -Path "install-static\OnnxRuntimeConfig.cmake" -Value "set(OnnxRuntime_INCLUDE_DIRS `${CMAKE_CURRENT_LIST_DIR}/include`)"
@@ -226,10 +226,10 @@ else
 
 $OutPutPath = "build-$VsArch-$VsVer-$VsCRT"
 
-if (!(Test-Path -Path $OutPutPath\Release))
+if (!(Test-Path -Path $OutPutPath\Debug))
 {
-    Write-Host "创建文件夹:$OutPutPath\Release"
-    New-Item -Path "$OutPutPath\Release" -ItemType Directory
+    Write-Host "创建文件夹:$OutPutPath\Debug"
+    New-Item -Path "$OutPutPath\Debug" -ItemType Directory
 }
 
 python $PSScriptRoot\tools\ci_build\build.py `
@@ -246,13 +246,13 @@ python $PSScriptRoot\tools\ci_build\build.py `
 	$StaticCrtFlag `
 	--cmake_extra_defines CMAKE_INSTALL_PREFIX=./install onnxruntime_BUILD_UNIT_TESTS=OFF
 
-if (!(Test-Path -Path $OutPutPath\Release\Release))
+if (!(Test-Path -Path $OutPutPath\Debug\Debug))
 {
     Write-Host "Build error!"
     exit
 }
 
-Push-Location "build-$VsArch-$VsVer-$VsCRT\Release"
+Push-Location "build-$VsArch-$VsVer-$VsCRT\Debug"
 
 #$LogicalProcessorsNum=(Get-CimInstance Win32_ComputerSystem).NumberOfLogicalProcessors
 #cmake --build . --config $BuildType --parallel $LogicalProcessorsNum
