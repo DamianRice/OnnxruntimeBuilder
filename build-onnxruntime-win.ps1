@@ -53,7 +53,7 @@ param (
 
     [Parameter(Mandatory = $false)]
     [ValidateSet('Release', 'Debug', 'MinSizeRel', 'RelWithDebInfo')]
-    [string] $BuildType = 'Release'
+    [string] $BuildType = 'Debug'
 )
 
 
