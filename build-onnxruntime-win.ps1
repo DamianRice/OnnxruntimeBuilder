@@ -226,10 +226,10 @@ else
 
 $OutPutPath = "build-$VsArch-$VsVer-$VsCRT"
 
-if (!(Test-Path -Path $OutPutPath\$BuildType))
+if (!(Test-Path -Path $OutPutPath\Release))
 {
-    Write-Host "创建文件夹:$OutPutPath\$BuildType"
-    New-Item -Path "$OutPutPath\$BuildType" -ItemType Directory
+    Write-Host "创建文件夹:$OutPutPath\Release"
+    New-Item -Path "$OutPutPath\Release" -ItemType Directory
 }
 
 python $PSScriptRoot\tools\ci_build\build.py `
@@ -246,13 +246,13 @@ python $PSScriptRoot\tools\ci_build\build.py `
 	$StaticCrtFlag `
 	--cmake_extra_defines CMAKE_INSTALL_PREFIX=./install onnxruntime_BUILD_UNIT_TESTS=OFF
 
-if (!(Test-Path -Path $OutPutPath\$BuildType\$BuildType))
+if (!(Test-Path -Path $OutPutPath\Release\Release))
 {
     Write-Host "Build error!"
     exit
 }
 
-Push-Location "build-$VsArch-$VsVer-$VsCRT\$BuildType"
+Push-Location "build-$VsArch-$VsVer-$VsCRT\Release"
 
 #$LogicalProcessorsNum=(Get-CimInstance Win32_ComputerSystem).NumberOfLogicalProcessors
 #cmake --build . --config $BuildType --parallel $LogicalProcessorsNum
